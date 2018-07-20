@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">android-mvp</string>
+    <string name="camera">打开相机失败</string>
+
+</resources>

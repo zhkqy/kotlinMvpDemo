@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "android.example.com.usbcamera2"
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    signingConfigs {
+
+        release {
+            storeFile file("../signature-3399-1/platform_rk3399_1.jks")
+            storePassword '123456'
+            keyAlias 'rk3399'
+            keyPassword '123456'
+        }
+
+        debug {
+            storeFile file("../signature-3399-1/platform_rk3399_1.jks")
+            storePassword '123456'
+            keyAlias 'rk3399'
+            keyPassword '123456'
+        }
+        sourceSets {
+            main {
+                jniLibs.srcDir 'libs'
+                jni.srcDirs = []
+            }
+        }
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs' // aar目录
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.orhanobut:logger:2.2.0'
+    implementation(name: 'SenseGuard_SDK', ext: 'aar')
+    implementation files('libs/core-service-sdk.jar')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    // ButterKnife
+    implementation 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    // Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    // CoreService
+    implementation 'com.zkteco:core-service-library:2.0.2'
+    implementation 'com.zkteco:helpers-android-db:1.0.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    // LeakCanary 检测内存泄漏
+    implementation 'com.bigkoo:ConvenientBanner:2.1.2'
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    //    implementation 'jp.wasabeef:glide-transformations:2.0.2'
+    // videoview
+    implementation 'com.yqritc:android-scalablevideoview:1.0.4'
+    implementation files('libs/core-service-interfaces.jar')
+}
